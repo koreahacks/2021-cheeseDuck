@@ -92,7 +92,6 @@
                 <i class="fas fa-fw fa-cat"></i>
                 <span>Introduce</span></a>
         </li>
->>>>>>> b6413d6dba08ae4cffad47d8d761d916af8c71fb:pdf_view_1.html
 
       <!-- Nav Item - Tutorial -->
       <li class="nav-item active">
