@@ -237,7 +237,9 @@
                             <button id="zoom_in">+</button>
                             <button id="zoom_out">-</button>
                         </div>
-                        <button onclick="javascript:on();return false;">형광펜</button>
+                        <button onclick="javascript:mode_3();return false;">실선</button>
+                        <button onclick="javascript:mode_2();return false;">별표</button>
+                        <button onclick="javascript:mode_1();return false;">형광펜</button>
                         <button onclick="javascript:drawImage();return false;">Clear Area</button>
                         <button onclick="javascript:cUndo();return false;">Undo</button>
                         <button onclick="javascript:cRedo();return false;">Redo</button>
@@ -253,7 +255,6 @@
                             zoom: 1.3
                         }
 
-                        function init()
                         pdfjsLib.getDocument('./5-5-tiled matrix mul_boundary_Q.pdf').then((pdf) => {
 
                             myState.pdf = pdf;

@@ -7,25 +7,43 @@ var ctx;
 var canvas;
 var cPushArray = new Array();
 var cStep = -1;
-var mode = false;
+var mode = false; // 형광펜
+var mode2 = false; // 별
+var mode3 = false; // 실선
 
 function InitThis() {
     canvas = document.getElementById('pdf_renderer');
     ctx = document.getElementById('pdf_renderer').getContext("2d");
     $('#pdf_renderer').mousedown(function (e) {
+      firstX = e.pageX - $(this).offset().left;
+      firstY = e.pageY - $(this).offset().top;
+
       if(mode){
         mousePressed = true;
-        firstX = e.pageX - $(this).offset().left;
-        firstY = e.pageY - $(this).offset().top;
         Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
         ctx.save();
+      }
+      else if(mode2){
+        var img = new Image();
+        img.src = "star.png";
+
+        var w = 30;
+
+        img.onload = function(){
+          ctx.drawImage(img, firstX-w/2, firstY-w/2, w, w);
+        }
+        cPush();
+      }
+      else if(mode3){
+        mousePressed = true;
+        lDraw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
       }
     });
 
     $('#pdf_renderer').mousemove(function (e) {
-      if(mode){
+      if(mode3){
         if (mousePressed) {
-          //  Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            lDraw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
         }
       }
     });
@@ -33,15 +51,15 @@ function InitThis() {
     $('#pdf_renderer').mouseup(function (e) {
       if(mode){
         Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-          if (mousePressed) {
-              mousePressed = false;
-              cPush();
-          }
+      }
+      if (mousePressed) {
+          mousePressed = false;
+          cPush();
       }
     });
 
     $('#pdf_renderer').mouseleave(function (e) {
-      if(mode){
+      if(mode || mode3){
         if (mousePressed) {
             mousePressed = false;
             cPush();
@@ -58,16 +76,37 @@ function drawImage() {
         cPush();
 }
 
-function on(){
+function mode_1(){
   if(cStep == -1){
-    render();
     cPush();
   }
   mode = true;
+  mode2 = false;
+  mode3 = false;
+}
+
+function mode_2(){
+  if(cStep == -1){
+    cPush();
+  }
+  mode = false;
+  mode2 = true;
+  mode3 = false;
+}
+
+function mode_3(){
+  if(cStep == -1){
+    cPush();
+  }
+  mode = false;
+  mode2 = false;
+  mode3 = true;
 }
 
 function off(){
   mode = false;
+  mode2 = false;
+  mode3 = false;
   cStep = -1;
   cPushArray = [];
 }
@@ -93,6 +132,21 @@ function Draw(x, y, isDown){
     ctx.closePath();
     ctx.restore();
   }
+}
+
+function lDraw(x, y, isDown) {
+    if (isDown) {
+        ctx.beginPath();
+        ctx.strokeStyle = $('#selColor').val();
+        ctx.lineWidth = $('#selWidth').val();
+        ctx.lineJoin = "round";
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    lastX = x;
+    lastY = y;
 }
 
 function cPush() {
