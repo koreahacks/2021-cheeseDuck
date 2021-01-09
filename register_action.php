@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <?php
 // initializing variables
-$email = "";
+$id = "";
 $fname = "";
 $lname = "";
 $errors = array();
@@ -22,7 +22,7 @@ if(!$connect) {
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
   // receive all input values from the form
-  $email = mysqli_real_escape_string($connect, $_POST['InputEmail']);
+  $id = mysqli_real_escape_string($connect, $_POST['InputId']);
   $fname = mysqli_real_escape_string($connect, $_POST['FirstName']);
   $lname = mysqli_real_escape_string($connect, $_POST['LastName']);
 
@@ -31,7 +31,7 @@ if (isset($_POST['reg_user'])) {
 
   // form validation: ensure that the form is correctly filled ...
   // by adding (array_push()) corresponding error unto $errors array
-  if (empty($email)) { array_push($errors, "Email is required"); }
+  if (empty($id)) { array_push($errors, "ID is required"); }
   if (empty($fname)) { array_push($errors, "First name is required"); }
   if (empty($lname)) { array_push($errors, "Last name is required"); }
   if (empty($password_1)) { array_push($errors, "Password is required"); }
@@ -41,19 +41,19 @@ if (isset($_POST['reg_user'])) {
 
   // first check the database to make sure
   // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM user WHERE email='$email' LIMIT 1";
+  $user_check_query = "SELECT * FROM user WHERE id='$id' LIMIT 1";
   $result = mysqli_query($connect, $user_check_query);
   $user = mysqli_fetch_assoc($result);
 
   if ($user) { // if user exists
-    array_push($errors, "Same email already exists");
+    array_push($errors, "Same ID already exists");
   }
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
   	$password = md5($password_1);//encrypt the password before saving in the database
 
-  	$query = "INSERT INTO user VALUES ('$email', '$fname', '$lname', '$password')";
+  	$query = "INSERT INTO user VALUES ('$id', '$fname', '$lname', '$password')";
 
   	mysqli_query($connect, $query);
   	header('location: login.php');

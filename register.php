@@ -48,8 +48,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="InputEmail"
-                                        placeholder="Email Address">
+                                    <input type="text" class="form-control form-control-user" name="InputId"
+                                        placeholder="ID">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">

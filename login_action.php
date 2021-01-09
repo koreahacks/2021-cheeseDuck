@@ -2,7 +2,7 @@
 session_start();
 
 // initializing variables
-$email    = "";
+$id    = "";
 $password = "";
 $errors = array();
 
@@ -17,11 +17,11 @@ if(!$connect) {
 }
 
 if (isset($_POST['login_user'])) {
- $email = mysqli_real_escape_string($connect, $_POST['InputEmail']);
+ $id = mysqli_real_escape_string($connect, $_POST['InputId']);
  $password = mysqli_real_escape_string($connect, $_POST['InputPassword']);
 
- if (empty($email)) {
-   array_push($errors, "Username is required");
+ if (empty($id)) {
+   array_push($errors, "ID is required");
  }
  if (empty($password)) {
    array_push($errors, "Password is required");
@@ -29,10 +29,10 @@ if (isset($_POST['login_user'])) {
 
  if (count($errors) == 0) {
    $password = md5($password);
-   $query = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+   $query = "SELECT * FROM user WHERE id='$id' AND password='$password'";
    $results = mysqli_query($connect, $query);
    if (mysqli_num_rows($results) == 1) {
-     $_SESSION['username'] = $username;
+     $_SESSION['id'] = $id;
      $_SESSION['success'] = "You are now logged in";
      header('location: index.php');
    }else {
