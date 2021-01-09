@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <?php
-$connect = mysql_connect("localhost", "root", "clwm+dhfl");
+$connect = mysql_connect("localhost", "cheeseduck", "Wlwm+dhfl16");
 mysql_set_charset("utf8", $connect);
 mysql_select_db("escaperoom", $connect);
 
