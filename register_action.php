@@ -56,7 +56,7 @@ if (isset($_POST['reg_user'])) {
   	$query = "INSERT INTO user VALUES ('$email', '$fname', '$lname', '$password')";
 
   	mysqli_query($connect, $query);
-  	header('location: login.html');
+  	header('location: login.php');
   }
   else include 'errors.php';
 }
