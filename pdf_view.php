@@ -69,6 +69,7 @@
 </head>
 <body id="page-top">
 
+<<<<<<< HEAD:pdf_view.php
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -92,6 +93,31 @@
               <i class="fas fa-fw fa-cat"></i>
               <span>Introduce</span></a>
       </li>
+=======
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-pencil-alt fa-lg"></i>
+            </div>
+            <div class="sidebar-brand-text mx-1">CheeseDuck</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Introduce -->
+        <li class="nav-item active">
+            <a class="nav-link" href="index.php">
+                <i class="fas fa-fw fa-cat"></i>
+                <span>Introduce</span></a>
+        </li>
+>>>>>>> b6413d6dba08ae4cffad47d8d761d916af8c71fb:pdf_view_1.html
 
       <!-- Nav Item - Tutorial -->
       <li class="nav-item active">
@@ -159,6 +185,21 @@
               <i class="fas fa-fw fa-clock"></i>
               <span>Everytime</span></a>
       </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Search Google -->
+      <form method=get action="http://www.google.co.kr/search" target="_blank" >
+        <table bgcolor="#224abe">
+          <tr>
+            <td>
+              <input type=text name=q size=25 maxlength=255 value="" /> <!-- 구글 검색 입력 창 -->
+              <input type=submit name=btnG value="Google 검색" /> <!-- 검색 버튼 -->
+            </td>
+          </tr>
+        </table>
+      </form>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
