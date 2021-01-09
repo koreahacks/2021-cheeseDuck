@@ -7,37 +7,46 @@ var ctx;
 var canvas;
 var cPushArray = new Array();
 var cStep = -1;
+var mode = false;
 
 function InitThis() {
     canvas = document.getElementById('pdf_renderer');
     ctx = document.getElementById('pdf_renderer').getContext("2d");
     $('#pdf_renderer').mousedown(function (e) {
+      if(mode){
         mousePressed = true;
         firstX = e.pageX - $(this).offset().left;
         firstY = e.pageY - $(this).offset().top;
         Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
         ctx.save();
+      }
     });
 
     $('#pdf_renderer').mousemove(function (e) {
+      if(mode){
         if (mousePressed) {
           //  Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
         }
+      }
     });
 
     $('#pdf_renderer').mouseup(function (e) {
-      Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        if (mousePressed) {
-            mousePressed = false;
-            cPush();
-        }
+      if(mode){
+        Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+          if (mousePressed) {
+              mousePressed = false;
+              cPush();
+          }
+      }
     });
 
     $('#pdf_renderer').mouseleave(function (e) {
+      if(mode){
         if (mousePressed) {
             mousePressed = false;
             cPush();
         }
+      }
     });
     //drawImage();
 }
@@ -47,6 +56,20 @@ function drawImage() {
         cPushArray = [];
         render();
         cPush();
+}
+
+function on(){
+  if(cStep == -1){
+    render();
+    cPush();
+  }
+  mode = true;
+}
+
+function off(){
+  mode = false;
+  cStep = -1;
+  cPushArray = [];
 }
 
 function Draw(x, y, isDown){
@@ -76,7 +99,8 @@ function cPush() {
     cStep++;
     if (cStep < cPushArray.length) { cPushArray.length = cStep; }
     cPushArray.push(document.getElementById('pdf_renderer').toDataURL());
-    document.title = "CheeseDuck Writing Service";
+    console.log(cPushArray);
+    document.title = cStep + ":" + cPushArray.length;
 }
 function cUndo() {
     if (cStep > 0) {
@@ -84,7 +108,7 @@ function cUndo() {
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = "CheeseDuck Writing Service";
+        document.title = cStep + ":" + cPushArray.length;
     }
 }
 function cRedo() {
@@ -93,10 +117,6 @@ function cRedo() {
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = "CheeseDuck Writing Service";
+        document.title = cStep + ":" + cPushArray.length;
     }
-}
-
-function save(){
-  $.ajax
 }

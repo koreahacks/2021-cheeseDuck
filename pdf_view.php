@@ -27,7 +27,7 @@
   <title>CheeseDuck Writing Service</title>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <!--  <script src="pdf_draw.js" type="text/javascript"></script>-->
+  <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
   <script src="rect.js"></script>
 
   <style>
@@ -113,22 +113,6 @@
           <a class="nav-link" href="pdf_view.php">
               <i class="fas fa-fw fa-table"></i>
               <span>pdf_view</span></a>
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-              aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-cog"></i>
-              <span>Honey Tip</span>
-          </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Custom Components:</h6>
-                  <a class="collapse-item" href="buttons.html">Buttons</a>
-                  <a class="collapse-item" href="cards.html">Cards</a>
-              </div>
-          </div>
       </li>
 
       <!-- Divider -->
@@ -244,18 +228,22 @@
                         </div>
 
                         <div id="navigation_controls">
-                            <button id="go_previous">Previous</button>
+                            <button id="go_previous" onclick="off();">Previous</button>
                             <input id="current_page" value="1" type="number"/>
-                            <button id="go_next">Next</button>
+                            <button id="go_next" onclick="off();">Next</button>
                         </div>
 
                         <div id="zoom_controls">
                             <button id="zoom_in">+</button>
                             <button id="zoom_out">-</button>
                         </div>
+                        <button onclick="javascript:on();return false;">형광펜</button>
                         <button onclick="javascript:drawImage();return false;">Clear Area</button>
                         <button onclick="javascript:cUndo();return false;">Undo</button>
                         <button onclick="javascript:cRedo();return false;">Redo</button>
+                        <button onclick="save2();">저장</button>
+                        <a id="download" download="image.png"><button type="button" onClick="download()">Download</button></a>
+                        <input type="file" name="profile" onload="init()">
                     </div>
 
                     <script>
@@ -265,6 +253,7 @@
                             zoom: 1.3
                         }
 
+                        function init()
                         pdfjsLib.getDocument('./5-5-tiled matrix mul_boundary_Q.pdf').then((pdf) => {
 
                             myState.pdf = pdf;
@@ -291,9 +280,38 @@
                             });
                         }
 
+                        function save(){
+                          var dataURL = document.getElementById('pdf_renderer').toDataURL();
+                          $.ajax({
+                            type: "POST",
+                            url: "file.php",
+                            data: {
+                              imgBase64: dataURL
+                            }
+                          }).done(function(o) {
+                            console.log('saved');
+                          });
+                        }
+
+                        function save2(){
+                          var c = document.getElementById('pdf_renderer');
+                          var d = c.toDataURL("image/png");
+                          var w = window.open('about:blank','imge from canvas');
+                          w.document.write("<img src='"+d+"' alt='from canvas'/>");
+                          render();
+                        }
+
+                        function download(){
+                        var download = document.getElementById("download");
+                        var image = document.getElementById("pdf_renderer").toDataURL("image/png")
+                                    .replace("image/png", "image/octet-stream");
+                        download.setAttribute("href", image);
+                        }
+
                         document.getElementById('go_previous').addEventListener('click', (e) => {
                             if(myState.pdf == null || myState.currentPage == 1)
                               return;
+
                             myState.currentPage -= 1;
                             document.getElementById("current_page").value = myState.currentPage;
                             render();
