@@ -240,6 +240,22 @@
                         <button onclick="javascript:mode_3();return false;">실선</button>
                         <button onclick="javascript:mode_2();return false;">별표</button>
                         <button onclick="javascript:mode_1();return false;">형광펜</button>
+                        <select id="selWidth">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="5" selected="selected">5</option>
+                            <option value="7">7</option>
+                            <option value="9">9</option>
+                            <option value="11">11</option>
+                        </select>
+                        <select id="selColor">
+                            <option value="black">black</option>
+                            <option value="blue">blue</option>
+                            <option value="red">red</option>
+                            <option value="green">green</option>
+                            <option value="yellow" selected="selected">yellow</option>
+                            <option value="gray">gray</option>
+                        </select>
                         <button onclick="javascript:drawImage();return false;">Clear Area</button>
                         <button onclick="javascript:cUndo();return false;">Undo</button>
                         <button onclick="javascript:cRedo();return false;">Redo</button>

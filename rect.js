@@ -27,7 +27,7 @@ function InitThis() {
         var img = new Image();
         img.src = "star.png";
 
-        var w = 30;
+        var w = $('#selWidth').val() * 30;
 
         img.onload = function(){
           ctx.drawImage(img, firstX-w/2, firstY-w/2, w, w);
@@ -123,11 +123,11 @@ function Draw(x, y, isDown){
     ctx.save();
     ctx.beginPath();
     ctx.rect(left, top, w, h);
-    ctx.fillStyle = "orange";
+    ctx.fillStyle = $('#selColor').val();
     ctx.globalAlpha = 0.5;
-    ctx.strokeStyle = "orange";
+    //ctx.strokeStyle = $('#selColor').val();
     ctx.globalAlpha = 0.5;
-    ctx.stroke();
+    //ctx.stroke();
     ctx.fill();
     ctx.closePath();
     ctx.restore();
@@ -154,7 +154,7 @@ function cPush() {
     if (cStep < cPushArray.length) { cPushArray.length = cStep; }
     cPushArray.push(document.getElementById('pdf_renderer').toDataURL());
     console.log(cPushArray);
-    document.title = cStep + ":" + cPushArray.length;
+    //document.title = cStep + ":" + cPushArray.length;
 }
 function cUndo() {
     if (cStep > 0) {
@@ -162,7 +162,7 @@ function cUndo() {
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = cStep + ":" + cPushArray.length;
+        //document.title = cStep + ":" + cPushArray.length;
     }
 }
 function cRedo() {
@@ -171,6 +171,6 @@ function cRedo() {
         var canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
         canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-        document.title = cStep + ":" + cPushArray.length;
+        //document.title = cStep + ":" + cPushArray.length;
     }
 }
