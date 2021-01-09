@@ -69,31 +69,6 @@
 </head>
 <body id="page-top">
 
-<<<<<<< HEAD:pdf_view.php
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-  <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-          <div class="sidebar-brand-icon rotate-n-15">
-              <i class="fas fa-pencil-alt fa-lg"></i>
-          </div>
-          <div class="sidebar-brand-text mx-1">CheeseDuck</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Introduce -->
-      <li class="nav-item active">
-          <a class="nav-link" href="index.php">
-              <i class="fas fa-fw fa-cat"></i>
-              <span>Introduce</span></a>
-      </li>
-=======
   <!-- Page Wrapper -->
   <div id="wrapper">
 
